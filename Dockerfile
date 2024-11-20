@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 RUN apt-get update && apt-get install -y \
     build-essential libsndfile1 \
     && rm -rf /var/lib/apt/lists/*
@@ -9,7 +9,7 @@ COPY . /app
 RUN pip install -e .
 RUN python -m unidic download
 RUN python melo/init_downloads.py
-
+RUN python installextra.py
 # Copy entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
